@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1d3a72">
+<title>Prova de Matemática 2ª série</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: coluna única para celular, fundo de tecido jeans (índigo com trama diagonal), cartões brancos com costura dourada, botões dourados */
+:root{
+  --denim:#1d3a72; --denim-light:#3f64a8; --denim-dark:#0d1f45;
+  --card:#ffffff; --ink:#0d1a38; --muted:#56617c; --line:#d6ddef; --tint:#edf1fa;
+  --gold:#ffcc00; --gold-deep:#d9a400; --gold-ink:#231a00; --stitch:#f2b31b; --warn:#c2410c;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0;color:#fff;font-family:var(--body);font-size:16px;line-height:1.5;
+  background-color:var(--denim);
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  .16 0 0 0 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"),
+    repeating-linear-gradient(45deg,rgba(255,255,255,.07) 0 1px,transparent 1px 4px),
+    repeating-linear-gradient(-45deg,rgba(0,0,0,.20) 0 1px,transparent 1px 5px),
+    radial-gradient(ellipse at 15% -5%,var(--denim-light) 0,transparent 60%),
+    radial-gradient(ellipse at 105% 105%,var(--denim-dark) 0,transparent 60%);
+  background-attachment:fixed;
+}
+img{max-width:100%}
+[hidden]{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:calc(20px + env(safe-area-inset-top,0px)) 24px;display:flex;flex-direction:column;gap:16px}
+header.top{display:flex;align-items:center;gap:12px}
+.badge{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3b0,var(--gold) 45%,var(--gold-deep));color:var(--gold-ink);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:22px;flex:none;box-shadow:0 0 0 3px rgba(0,0,0,.25),inset 0 -3px 0 rgba(0,0,0,.18)}
+.top h1{font-family:var(--display);font-size:18px;margin:0;line-height:1.2;text-wrap:balance;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.top p{margin:0;font-size:13px;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.card{position:relative;background:var(--card);color:var(--ink);border-radius:18px;padding:24px 22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.card::before{content:"";position:absolute;inset:7px;border:2px dashed var(--stitch);border-radius:13px;pointer-events:none}
+.card>*{position:relative}
+h2{font-family:var(--display);font-size:22px;margin:0;line-height:1.25;text-wrap:balance}
+.lead{margin:0;color:var(--muted)}
+.label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--denim)}
+button{font:inherit;cursor:pointer;border:none}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.turmas{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.turma{background:var(--tint);color:var(--denim);border:2px solid var(--line);border-radius:14px;padding:14px 0;font-family:var(--display);font-size:22px;font-weight:700}
+.turma[aria-pressed="true"]{background:var(--denim);color:var(--gold);border-color:var(--denim)}
+input[type=text]{font:inherit;width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:12px;color:var(--ink);background:#fff}
+.btn{display:block;text-align:center;text-decoration:none;background:var(--gold);color:var(--gold-ink);border-radius:14px;padding:15px 18px;font-weight:700;font-size:17px;width:100%;box-shadow:0 3px 0 var(--gold-deep)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--gold-deep)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--denim);border:2px solid var(--line);box-shadow:none}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+.progress{display:flex;flex-direction:column;gap:8px}
+.progress .meta{display:flex;justify-content:space-between;font-size:14px;font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.bar{height:8px;background:rgba(0,0,0,.25);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--gold);border-radius:99px;transition:width .3s}
+.stem{font-size:17px;font-weight:500;margin:0}
+.seq{font-family:var(--display);font-weight:700;white-space:nowrap}
+sup{font-size:.7em}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px;text-align:left;color:var(--ink)}
+.opt b{flex:none;width:30px;height:30px;border-radius:50%;background:var(--tint);color:var(--denim);display:grid;place-items:center;font-family:var(--display)}
+.opt span{padding-top:3px;min-width:0}
+.opt[aria-checked="true"]{border-color:var(--denim);background:var(--tint)}
+.opt[aria-checked="true"] b{background:var(--gold);color:var(--gold-ink)}
+.grid10{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.cell{border-radius:12px;padding:10px 0;text-align:center;font-family:var(--display);font-weight:700;border:2px solid var(--line);background:#fff;color:var(--ink)}
+.cell.done{background:var(--denim);border-color:var(--denim);color:var(--gold)}
+.cell.todo{border-color:var(--warn);color:var(--warn)}
+.alert{background:#fff4e6;color:#7a2e00;border-radius:12px;padding:12px;font-size:14px;margin:0}
+.who{text-align:center}
+.who strong{display:block;font-family:var(--display);font-size:22px}
+.score{display:flex;justify-content:center;gap:28px;text-align:center}
+.score div{display:flex;flex-direction:column}
+.score b{font-family:var(--display);font-size:32px;color:var(--denim);font-variant-numeric:tabular-nums}
+.score small{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+details{display:flex;flex-direction:column}
+details[open]>*+*{margin-top:12px}
+summary{cursor:pointer;color:var(--denim);font-weight:600;font-size:14px;text-align:center}
+.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.steps li{display:flex;gap:10px;align-items:flex-start}
+.steps li>b{flex:none;width:26px;height:26px;border-radius:50%;background:var(--denim);color:var(--gold);display:grid;place-items:center;font-family:var(--display);font-size:14px}
+.steps li>span{padding-top:1px;min-width:0}
+.mail{display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--tint);border-radius:12px;padding:10px 12px}
+.mail code{font-family:ui-monospace,monospace;font-size:14px;color:var(--denim);overflow-wrap:anywhere;flex:1;min-width:0;user-select:all}
+.mini{background:var(--denim);color:var(--gold);border-radius:10px;padding:8px 12px;font-weight:700;font-size:14px}
+textarea{font-family:ui-monospace,monospace;font-size:13px;width:100%;min-height:220px;border:2px solid var(--line);border-radius:12px;padding:10px;color:var(--ink);background:#fff;resize:vertical}
+.ok{color:#15803d;font-weight:600;font-size:14px;margin:0;min-height:1.4em}
+.foot{text-align:center;font-size:13px;margin:0;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.link{background:none;color:#fff;text-decoration:underline;font-size:13px;opacity:.85;align-self:center}
+.credit{text-align:center;font-size:13px;margin:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 calc(28px + env(safe-area-inset-bottom,0px));text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.credit b{color:var(--gold)}
+.formula summary{text-align:left;display:inline-flex;align-items:center;gap:6px;background:var(--tint);border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;width:max-content;max-width:100%}
+.fbox{background:var(--tint);border-radius:12px;padding:12px 14px;font-size:16px;line-height:1.7;color:var(--ink)}
+.fix{border-top:1.5px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:6px}
+.fix p{margin:0}
+.fstem{font-weight:500}
+.mine{color:var(--warn);font-size:15px}
+.right{color:#15803d;font-weight:600;font-size:15px}
+.why{background:var(--tint);border-radius:12px;padding:10px 12px;font-size:15px;line-height:1.6}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app" aria-live="polite"></div>
+<p class="credit">Aplicativo criado pela <b>Professora Regina Lúcia</b></p>
+
+<script>
+const DISCIPLINA = "Matemática";
+const EMAIL = "reginals@prof.educacao.sp.gov.br";
+const TURMAS = ["A","B","D"];
+const KEY = "mat2-4bim-v1";
+const CODIGO_PROF = "8020";
+
+const F = {
+ pa:'<b>Progressão aritmética (PA):</b> a diferença entre um termo e o anterior é sempre a mesma (razão r).<br>r = a<sub>2</sub> − a<sub>1</sub>',
+ paTermo:'<b>Termo geral da PA</b><br>a<sub>n</sub> = a<sub>1</sub> + (n − 1) · r',
+ paSoma:'<b>Termo geral da PA</b><br>a<sub>n</sub> = a<sub>1</sub> + (n − 1) · r<br><br><b>Soma dos termos da PA</b><br>S<sub>n</sub> = (a<sub>1</sub> + a<sub>n</sub>) · n ÷ 2',
+ pgTermo:'<b>Termo geral da PG</b><br>a<sub>n</sub> = a<sub>1</sub> · q<sup>n − 1</sup><br>razão: q = a<sub>2</sub> ÷ a<sub>1</sub>',
+ pgSoma:'<b>Soma dos n primeiros termos da PG</b><br>S<sub>n</sub> = a<sub>1</sub> · (q<sup>n</sup> − 1) ÷ (q − 1)'
+};
+const EXP = {
+ 1:"Em uma PA a diferença entre os termos é sempre a mesma. Em 3, 5, 7, 11: 5 − 3 = 2 e 7 − 5 = 2, mas 11 − 7 = 4. A diferença mudou, então não é PA.",
+ 2:"a<sub>1</sub> = 2 e r = 5 − 2 = 3.<br>a<sub>100</sub> = 2 + 99 · 3 = 2 + 297 = <b>299</b>.",
+ 3:"r = 140 − 120 = 20.<br>a<sub>5</sub> = 120 + 4 · 20 = 120 + 80 = <b>200</b>.",
+ 4:"É uma PA com a<sub>1</sub> = 500 e r = 100. No 7º dia: a<sub>7</sub> = 500 + 6 · 100 = 1.100 m.<br>S<sub>7</sub> = (500 + 1.100) · 7 ÷ 2 = 1.600 · 7 ÷ 2 = <b>5.600 m</b>.",
+ 5:"PA com a<sub>1</sub> = 1 e r = 2. O 99 é o 50º termo, pois 1 + 49 · 2 = 99.<br>S<sub>50</sub> = (1 + 99) · 50 ÷ 2 = 100 · 50 ÷ 2 = <b>2.500</b>.",
+ 6:"a<sub>3</sub> = a<sub>1</sub> · q<sup>2</sup> → 36 = 4 · q<sup>2</sup> → q<sup>2</sup> = 9 → q = 3 (os termos são positivos). Resposta: <b>3</b>.",
+ 7:"a<sub>4</sub> = 2 · 3<sup>4 − 1</sup> = 2 · 3<sup>3</sup> = 2 · 27 = <b>54</b>.",
+ 8:"a<sub>1</sub> = 5 e q = 10 ÷ 5 = 2. Pela fórmula: <b>a<sub>n</sub> = 5 · 2<sup>n − 1</sup></b>. Confira: para n = 1, dá 5 · 2<sup>0</sup> = 5.",
+ 9:"a<sub>1</sub> = 5, q = 2 e n = 10.<br>S<sub>10</sub> = 5 · (2<sup>10</sup> − 1) ÷ (2 − 1) = 5 · 1.023 = <b>5.115</b>.",
+ 10:"PG com a<sub>1</sub> = 200, q = 2 e n = 8.<br>S<sub>8</sub> = 200 · (2<sup>8</sup> − 1) ÷ (2 − 1) = 200 · 255 = <b>51.000</b>."
+};
+const FORM = {1:"pa",2:"paTermo",3:"paTermo",4:"paSoma",5:"paSoma",6:"pgTermo",7:"pgTermo",8:"pgTermo",9:"pgSoma",10:"pgSoma"};
+
+const Q = [
+ {n:1, stem:"Qual das sequências a seguir <u><b>não</b></u> é uma progressão aritmética (PA)?", ok:"B", o:{
+  A:'<span class="seq">1, 2, 3, 4, ...</span>',
+  B:'<span class="seq">3, 5, 7, 11, ...</span>',
+  C:'<span class="seq">10, 9, 8, 7, ...</span>',
+  D:'<span class="seq">5, 5, 5, 5, ...</span>'}},
+ {n:2, stem:'Qual é o 100º termo da PA <span class="seq">2, 5, 8, 11, ...</span>?', ok:"A", o:{
+  A:"299", B:"200", C:"300", D:"302"}},
+ {n:3, stem:"Uma empresa aumenta a produção em uma quantidade fixa por mês. No 1º mês produz 120 unidades e no 2º mês, 140. Quantas unidades produzirá no 5º mês?", ok:"C", o:{
+  A:"160", B:"180", C:"200", D:"220"}},
+ {n:4, stem:"Um atleta corre 500 m no 1º dia de treino e, a cada dia, corre 100 m a mais que no dia anterior. Qual a distância total percorrida em 7 dias?", ok:"D", o:{
+  A:"1.100 m", B:"3.500 m", C:"7.700 m", D:"5.600 m"}},
+ {n:5, stem:'Qual é o valor da soma <span class="seq">1 + 3 + 5 + 7 + ... + 99</span>?', ok:"B", o:{
+  A:"2.450", B:"2.500", C:"4.950", D:"5.000"}},
+ {n:6, stem:"Em uma progressão geométrica (PG) de termos positivos, o 1º termo é 4 e o 3º termo é 36. Qual é a razão?", ok:"A", o:{
+  A:"3", B:"2", C:"6", D:"9"}},
+ {n:7, stem:'O termo geral de uma PG é a<sub>n</sub> = 2 · 3<sup>n−1</sup>. Qual é o 4º termo?', ok:"C", o:{
+  A:"18", B:"36", C:"54", D:"81"}},
+ {n:8, stem:'Qual é o termo geral da PG <span class="seq">5, 10, 20, 40, ...</span>?', ok:"D", o:{
+  A:"a<sub>n</sub> = 2 · 5<sup>n−1</sup>", B:"a<sub>n</sub> = 5 · 2<sup>n</sup>", C:"a<sub>n</sub> = 2 · 5<sup>n</sup>", D:"a<sub>n</sub> = 5 · 2<sup>n−1</sup>"}},
+ {n:9, stem:'Qual é a soma dos 10 primeiros termos da PG <span class="seq">5, 10, 20, ...</span>?', ok:"B", o:{
+  A:"1.023", B:"5.115", C:"2.560", D:"5.120"}},
+ {n:10, stem:"Uma doença teve 200 casos na 1ª semana, e o número de novos casos dobra a cada semana. Qual o total de pessoas contaminadas após 8 semanas?", ok:"A", o:{
+  A:"51.000", B:"25.600", C:"51.200", D:"1.600"}}
+];
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||null}catch(e){return null}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function clearSave(){try{localStorage.removeItem(KEY)}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function turmaTxt(t){return "2ª série "+t}
+
+function novo(){return {step:"inicio",turma:null,nome:"",ordem:null,alt:null,resp:{},i:0,result:null,confirm:false,prof:false}}
+let S = load() || novo();
+const app = document.getElementById("app");
+
+function header(){return `<header class="top"><div class="badge">Σ</div><div><p>4º bimestre · 2ª série</p><h1>Avaliação de Matemática</h1></div></header>`}
+
+function render(){
+  const f = {inicio:vInicio,confirmar:vConfirmar,questao:vQuestao,revisao:vRevisao,resultado:vResultado}[S.step];
+  app.innerHTML = header() + f();
+  bind();
+  window.scrollTo(0,0);
+}
+
+function podeSeguir(){return !!S.turma && S.nome.trim().length>=3}
+function falta(){ if(!S.turma) return "Toque na sua turma no Passo 1."; if(S.nome.trim().length<3) return "Digite o seu nome para continuar."; return ""; }
+
+function vInicio(){
+  return `<section class="card"><div class="label">Passo 1</div><h2>Qual é a sua turma?</h2>
+  <div class="turmas">${TURMAS.map(t=>`<button class="turma" data-turma="${t}" aria-pressed="${S.turma===t}">2ª ${t}</button>`).join("")}</div></section>
+  <section class="card"><div class="label">Passo 2</div><h2>Digite seu nome completo</h2>
+  <input type="text" id="nome" autocomplete="name" value="${esc(S.nome)}" placeholder="Nome e sobrenome">
+  <p class="lead">Escreva nome e sobrenome, do jeito que está na lista de chamada.</p>
+  <p class="alert" id="falta" ${podeSeguir()?"hidden":""}>${falta()}</p>
+  <button class="btn" id="seguir" ${podeSeguir()?"":"disabled"}>Continuar</button></section>`;
+}
+
+function vConfirmar(){
+  return `<section class="card"><h2>Confira seus dados</h2>
+  <p class="lead">Turma: <b>${turmaTxt(S.turma)}</b><br>Nome: <b>${esc(S.nome.trim())}</b></p>
+  <p class="lead">A prova tem <b>${Q.length} questões</b> de múltipla escolha. Você pode usar papel e lápis para fazer as contas, e pode voltar e trocar respostas antes de entregar.</p>
+  <div class="row"><button class="btn ghost" id="voltarInicio">Corrigir</button><button class="btn" id="comecar">Começar a prova</button></div></section>`;
+}
+
+function vQuestao(){
+  const qi = S.ordem[S.i], q = Q[qi], letras = ["A","B","C","D"];
+  const feitas = Object.keys(S.resp).length;
+  return `<div class="progress"><div class="meta"><span>Questão ${S.i+1} de ${Q.length}</span><span>${feitas} respondidas</span></div><div class="bar"><i style="width:${Math.round(feitas/Q.length*100)}%"></i></div></div>
+  <section class="card"><p class="stem">${q.stem}</p>
+  <details class="formula"><summary>Ver fórmula</summary><div class="fbox">${F[FORM[q.n]]}</div></details>
+  <div class="opts" role="radiogroup">${S.alt[qi].map((k,pos)=>`<button class="opt" role="radio" data-op="${k}" aria-checked="${S.resp[q.n]===k}"><b>${letras[pos]}</b><span>${q.o[k]}</span></button>`).join("")}</div>
+  <div class="row">${S.i>0?`<button class="btn ghost" id="ant">Anterior</button>`:""}<button class="btn" id="prox">${S.i<Q.length-1?"Próxima":"Revisar e entregar"}</button></div></section>`;
+}
+
+function vRevisao(){
+  const lista = S.ordem.map((qi,pos)=>({pos,feito:!!S.resp[Q[qi].n]}));
+  const nFalta = lista.filter(x=>!x.feito).length;
+  return `<section class="card"><h2>Revise antes de entregar</h2>
+  <p class="lead">Toque em um número para voltar à questão.</p>
+  <div class="grid10">${lista.map(x=>`<button class="cell ${x.feito?"done":"todo"}" data-ir="${x.pos}">${x.pos+1}</button>`).join("")}</div>
+  ${nFalta?`<p class="alert">Você ainda não respondeu ${nFalta} ${nFalta>1?"questões":"questão"}. Questões em branco contam como erro.</p>`:""}
+  ${S.confirm?`<p class="alert">Depois de entregar, não dá para mudar as respostas. Confirma a entrega?</p>
+   <div class="row"><button class="btn ghost" id="naoEntregar">Ainda não</button><button class="btn" id="simEntregar">Sim, entregar</button></div>`
+   :`<button class="btn" id="entregar">Entregar prova</button>`}</section>`;
+}
+
+function relatorio(){
+  const r = S.result;
+  const linhas = Q.map(q=>{const a=S.resp[q.n]; return "Questão "+q.n+": "+(!a?"em branco":(a===q.ok?"certa":"errada"));});
+  return ["Relatório da Avaliação de "+DISCIPLINA+" - 4º bimestre",
+   "",
+   "Aluno: "+r.nome,
+   "Turma: "+turmaTxt(r.turma),
+   "Nota final: "+r.nota+" ("+r.acertos+" de "+Q.length+" acertos)",
+   "",
+   "Resumo das respostas:",
+   ...linhas,
+   "",
+   "Entregue em: "+r.data].join("\n");
+}
+function linkEmail(){
+  const assunto = "Avaliação de "+DISCIPLINA+" - "+S.result.nome+" - "+turmaTxt(S.result.turma);
+  return "mailto:"+EMAIL+"?subject="+encodeURIComponent(assunto)+"&body="+encodeURIComponent(relatorio());
+}
+
+function vCorrecao(){
+  const errs = Q.filter(q=>S.resp[q.n]!==q.ok);
+  if(!errs.length) return `<section class="card"><h2>Parabéns!</h2><p class="lead">Você acertou todas as questões.</p></section>`;
+  return `<section class="card"><h2>Correção</h2><p class="lead">Veja onde você errou e como fazer a conta.</p>
+  ${errs.map(q=>{const a=S.resp[q.n];return `<div class="fix"><p class="fstem">${q.stem}</p>
+   <p class="mine">Sua resposta: ${a?q.o[a]:"em branco"}</p>
+   <p class="right">Resposta certa: ${q.o[q.ok]}</p>
+   <p class="why">${EXP[q.n]}</p></div>`}).join("")}</section>`;
+}
+
+function vResultado(){
+  const r = S.result;
+  return `<section class="card"><div class="label" style="text-align:center">Prova entregue</div>
+  <div class="who"><strong>${esc(r.nome)}</strong>${turmaTxt(r.turma)}</div>
+  <div class="score"><div><b>${r.acertos}/${Q.length}</b><small>Acertos</small></div><div><b>${r.nota}</b><small>Nota</small></div></div></section>
+  ${vCorrecao()}
+  <section class="card"><h2>Envie seu resultado</h2>
+  <a class="btn" href="${linkEmail()}">Enviar Relatório por E-mail</a>
+  <p class="lead">O seu aplicativo de e-mail vai abrir com tudo preenchido. Confira e toque em <b>Enviar</b>.</p>
+  <details><summary>O e-mail não abriu? Toque aqui</summary>
+  <ol class="steps">
+   <li><b>1</b><span>Toque em <b>Copiar resultado</b>.</span></li>
+   <li><b>2</b><span>Abra o seu e-mail e escreva para a professora:</span></li>
+  </ol>
+  <div class="mail"><code id="mailTxt">${EMAIL}</code><button class="mini" id="copiarEmail">Copiar e-mail</button></div>
+  <ol class="steps">
+   <li><b>3</b><span>No assunto, escreva seu nome e a turma.</span></li>
+   <li><b>4</b><span>Cole o resultado no corpo do e-mail e envie.</span></li>
+  </ol>
+  <textarea id="resTxt" readonly aria-label="Resultado para copiar">${esc(relatorio())}</textarea>
+  <button class="btn ghost" id="copiarRes">Copiar resultado</button>
+  <p class="ok" id="okMsg"></p>
+  </details></section>
+  <p class="foot">Entregue em ${r.data}</p>
+  ${S.prof?`<section class="card"><label class="label" for="cod">Código da professora</label><input type="text" id="cod" inputmode="numeric" autocomplete="off"><p class="alert" id="codMsg" hidden>Código incorreto.</p>
+   <div class="row"><button class="btn ghost" id="profCancela">Cancelar</button><button class="btn" id="profOk">Liberar</button></div></section>`
+   :`<button class="link" id="outro">Liberar este celular para outro aluno</button>`}`;
+}
+
+function copiar(texto, el, msg){
+  const out=document.getElementById("okMsg");
+  const fallback=()=>{ if(el.select){el.focus();el.select();} else {const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);} out.textContent="O texto está selecionado. Toque e segure para copiar."; };
+  try{ navigator.clipboard.writeText(texto).then(()=>{out.textContent=msg},fallback); }catch(e){ fallback(); }
+}
+
+function corrigir(){
+  let acertos=0; const erros=[];
+  Q.forEach(q=>{if(S.resp[q.n]===q.ok) acertos++; else erros.push(q.n)});
+  const nota = (acertos*10/Q.length).toLocaleString("pt-BR",{maximumFractionDigits:2});
+  const d = new Date();
+  const data = d.toLocaleDateString("pt-BR")+" "+d.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+  const nome = S.nome.trim().replace(/\s+/g," ");
+  S.result = {turma:S.turma,nome,acertos,nota,erros,data};
+}
+
+function on(id,fn){const el=document.getElementById(id);if(el)el.onclick=fn}
+function bind(){
+  app.querySelectorAll("[data-turma]").forEach(b=>b.onclick=()=>{S.turma=b.dataset.turma;save();render();const n=document.getElementById("nome");n.focus();n.setSelectionRange(n.value.length,n.value.length)});
+  const nm=document.getElementById("nome"); if(nm) nm.oninput=()=>{S.nome=nm.value;save();document.getElementById("seguir").disabled=!podeSeguir();const f=document.getElementById("falta");f.hidden=podeSeguir();f.textContent=falta()};
+  on("seguir",()=>{S.step="confirmar";save();render()});
+  on("voltarInicio",()=>{S.step="inicio";save();render()});
+  on("comecar",()=>{S.ordem=shuffle(Q.map((_,i)=>i));S.alt=Q.map(q=>shuffle(Object.keys(q.o)));S.resp={};S.i=0;S.step="questao";save();render()});
+  app.querySelectorAll("[data-op]").forEach(b=>b.onclick=()=>{S.resp[Q[S.ordem[S.i]].n]=b.dataset.op;save();render()});
+  on("ant",()=>{S.i--;save();render()});
+  on("prox",()=>{if(S.i<Q.length-1){S.i++}else{S.step="revisao";S.confirm=false}save();render()});
+  app.querySelectorAll("[data-ir]").forEach(b=>b.onclick=()=>{S.i=+b.dataset.ir;S.step="questao";save();render()});
+  on("entregar",()=>{S.confirm=true;render()});
+  on("naoEntregar",()=>{S.confirm=false;render()});
+  on("simEntregar",()=>{corrigir();S.step="resultado";S.confirm=false;save();render()});
+  on("copiarRes",()=>copiar(relatorio(),document.getElementById("resTxt"),"Resultado copiado! Agora cole no e-mail."));
+  on("copiarEmail",()=>copiar(EMAIL,document.getElementById("mailTxt"),"E-mail da professora copiado."));
+  on("outro",()=>{S.prof=true;render();document.getElementById("cod").focus()});
+  on("profCancela",()=>{S.prof=false;render()});
+  on("profOk",()=>{if(document.getElementById("cod").value.trim()===CODIGO_PROF){clearSave();S=novo();render()}else{document.getElementById("codMsg").hidden=false}});
+}
+
+render();
+</script>
+</body>
+</html>
